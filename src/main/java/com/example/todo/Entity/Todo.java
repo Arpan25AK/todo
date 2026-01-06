@@ -1,14 +1,10 @@
 package com.example.todo.Entity;
 
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.Fetch;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +26,10 @@ public class Todo {
     private String content;
 
     private boolean completed = false;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private Users users;
     
 
 }
