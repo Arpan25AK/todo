@@ -10,7 +10,7 @@ public class UserService {
     @Autowired
     public UserRepo userRepo;
 
-    public saveUser(Users users){
+    public Users saveUser(Users users){
         return userRepo.save(users);
 
 

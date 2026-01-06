@@ -5,7 +5,6 @@ import com.example.todo.Entity.Users;
 import com.example.todo.repository.TodoRepository;
 import com.example.todo.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,12 @@ public class TodoService {
     }
 
     public Todo saveAllTodos(Todo todo,Long userId){
-        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id:" + userId));
-        todo.setUsers(user);
+        Users users = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id:" + userId));
+        todo.setUsers(users);
+        return todoRepository.save(todo);
+    }
+
+    public Todo updateTodo(Todo todo){
         return todoRepository.save(todo);
     }
 

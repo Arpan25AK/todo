@@ -17,20 +17,20 @@ public class todoController {
     private final TodoService todoService;
 
     @GetMapping("/getAll")
-    public List<Todo> getAllTodos(){
+    public List<Todo> getAllTodos(){// this api calls is only used to get all the todo or entries from the db.
         return todoService.getAllTodos();
     }
 
-    @PostMapping("/create")
-    public Todo createTodo(@RequestBody Todo todo){
-        return todoService.saveAllTodos(todo);
+    @PostMapping("/create/{userId}")
+    public Todo createTodo(@RequestBody Todo todo,@PathVariable Long userId){ // now added the userId to the path variable so the link is established with the tododb
+        return todoService.saveAllTodos(todo,userId);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")// this api is called to update the existing todo by checking if the todo id matches and if so changhes are applied.
     public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         // here checking happens whether the id exists or not.
         Todo existingTodo = todoService.getById(id)
-                .orElseThrow(() -> new RuntimeException("Todo not found")); //if the id dosent match it throws the error stopping the program,
+                .orElseThrow(() -> new RuntimeException("Todo not found")); //if the id dosen't match it throws the error stopping the program,
 
         // if the file does exist then here the update process starts
         existingTodo.setTitle(todo.getTitle());
@@ -38,7 +38,7 @@ public class todoController {
         existingTodo.setCompleted(todo.isCompleted());
 
         // this line saves the updated info in db.
-        return todoService.saveAllTodos(existingTodo);
+        return todoService.updateTodo(existingTodo);
     }
 
     // this is the delete by id api which del the id if the id is found else throws error.
