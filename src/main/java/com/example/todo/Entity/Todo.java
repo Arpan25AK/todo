@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.Fetch;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -29,6 +30,8 @@ public class Todo {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @com.fasterxml.jackson.annotation.JsonBackReference
+    @ToString.Exclude
     private Users users;
     
 

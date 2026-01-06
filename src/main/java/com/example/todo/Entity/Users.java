@@ -23,7 +23,8 @@ public class Users {
 
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonManagedReference //added this to stop the recursion call issue.
     private List<Todo> todos;
 
 }
